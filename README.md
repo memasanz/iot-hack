@@ -34,6 +34,7 @@ The simulator generates synthetic industrial sensor data (temperature, pressure,
 |---|---|
 | **[IoT Simulator Setup](docs/IOT_SIMULATOR_SETUP.md)** | Deploy the IoT telemetry simulator to Azure — infrastructure, configuration, and monitoring |
 | **[Fabric Hackathon](docs/FABRIC_HACKATHON.md)** | Connect Fabric to the IoT Hub and build real-time analytics on the streaming data |
+| **[AI Hackathon](docs/AI_HACKATHON.md)** | Use Azure AI Search and AI Foundry to build AI-powered experiences over the telemetry data |
 
 ## Quick Start
 
