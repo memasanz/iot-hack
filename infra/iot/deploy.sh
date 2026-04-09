@@ -103,7 +103,7 @@ if [ -n "$FQDN" ]; then
 fi
 echo ""
 echo "  NEXT STEP — assign roles (requires Owner or User Access Administrator):"
-echo "    RESOURCE_GROUP=$RESOURCE_GROUP PREFIX=$PREFIX bash infra/deploy-roles.sh"
+echo "    RESOURCE_GROUP=$RESOURCE_GROUP PREFIX=$PREFIX bash infra/iot/deploy-roles.sh"
 echo ""
 echo "  View logs:"
 echo "    az containerapp logs show -n $CONTAINER_APP_NAME -g $RESOURCE_GROUP --follow"

@@ -33,6 +33,7 @@ The simulator generates synthetic industrial sensor data (temperature, pressure,
 | Guide | Description |
 |---|---|
 | **[IoT Simulator Setup](docs/IOT_SIMULATOR_SETUP.md)** | Deploy the IoT telemetry simulator to Azure — infrastructure, configuration, and monitoring |
+| **[AI Services Setup](docs/AI_SETUP.md)** | Deploy AI Search, AI Foundry, and model deployments (text-embedding-3-small, gpt-4.1) |
 | **[Fabric Hackathon](docs/FABRIC_HACKATHON.md)** | Connect Fabric to the IoT Hub and build real-time analytics on the streaming data |
 | **[AI Hackathon](docs/AI_HACKATHON.md)** | Use Azure AI Search and AI Foundry to build AI-powered experiences over the telemetry data |
 
@@ -44,13 +45,21 @@ See the full [IoT Simulator Setup](docs/IOT_SIMULATOR_SETUP.md) guide for detail
 
 ```powershell
 # Step 1 — Deploy resources (requires Contributor)
-.\infra\deploy.ps1 -ResourceGroup "mbi-iot-rg" -Location "eastus" -Prefix "mmxiot"
+.\infra\iot\deploy.ps1 -ResourceGroup "mbi-iot-rg" -Location "eastus" -Prefix "mmxiot"
 
 # Step 2 — Assign roles (requires Owner or User Access Administrator)
-.\infra\deploy-roles.ps1 -ResourceGroup "mbi-iot-rg" -Prefix "mmxiot"
+.\infra\iot\deploy-roles.ps1 -ResourceGroup "mbi-iot-rg" -Prefix "mmxiot"
 ```
 
-### 2. Connect Fabric
+### 2. Deploy AI services
+
+See the full [AI Services Setup](docs/AI_SETUP.md) guide for details.
+
+```powershell
+.\infra\ai\deploy.ps1 -ResourceGroup "mbi-iot-rg" -Location "eastus" -Prefix "mmxiot"
+```
+
+### 3. Connect Fabric
 
 See the [Fabric Hackathon](docs/FABRIC_HACKATHON.md) guide for step-by-step instructions.
 

@@ -101,7 +101,7 @@ if ($fqdn) {
 }
 Write-Host ""
 Write-Host "  NEXT STEP — assign roles (requires Owner or User Access Administrator):"
-Write-Host "    .\infra\deploy-roles.ps1 -ResourceGroup $ResourceGroup -Prefix $Prefix"
+Write-Host "    .\infra\iot\deploy-roles.ps1 -ResourceGroup $ResourceGroup -Prefix $Prefix"
 Write-Host ""
 Write-Host "  View logs:"
 Write-Host "    az containerapp logs show -n $ContainerAppName -g $ResourceGroup --follow"

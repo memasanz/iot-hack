@@ -7,6 +7,7 @@ This guide walks you through using **Azure AI Search** and **Azure AI Foundry** 
 ## Prerequisites
 
 - IoT Simulator deployed and sending data (see [IoT Simulator Setup](IOT_SIMULATOR_SETUP.md))
+- AI services deployed (see [AI Services Setup](AI_SETUP.md))
 - An Azure subscription with access to Azure AI services
 
 ## Azure AI Search

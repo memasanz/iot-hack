@@ -39,19 +39,27 @@ mbi_iot/
 │   ├── simulator.py              # Simulation engine (background thread)
 │   └── main.py                   # FastAPI entry point
 ├── infra/                        # Infrastructure as Code
-│   ├── main.bicep                # Orchestrator — wires all modules together
-│   ├── main.bicepparam           # Default parameter values
-│   ├── deploy.ps1                # Step 1: Deploy resources (PowerShell)
-│   ├── deploy.sh                 # Step 1: Deploy resources (Bash)
-│   ├── deploy-roles.ps1          # Step 2: Assign roles (PowerShell)
-│   ├── deploy-roles.sh           # Step 2: Assign roles (Bash)
-│   ├── role-assignment.bicep     # IoT Hub Data Contributor role template
-│   └── modules/
-│       ├── acr.bicep             # Azure Container Registry
-│       ├── iot-hub.bicep         # IoT Hub + configurable consumer groups
-│       ├── container-app-env.bicep   # Container App Environment + Log Analytics
-│       ├── container-app.bicep   # Container App (managed identity enabled)
-│       └── eventhub-role-assignment.bicep  # IoT Hub Data Contributor role
+│   ├── iot/                      # IoT Simulator infrastructure
+│   │   ├── main.bicep            # Orchestrator — wires all modules together
+│   │   ├── main.bicepparam       # Default parameter values
+│   │   ├── deploy.ps1            # Step 1: Deploy resources (PowerShell)
+│   │   ├── deploy.sh             # Step 1: Deploy resources (Bash)
+│   │   ├── deploy-roles.ps1      # Step 2: Assign roles (PowerShell)
+│   │   ├── deploy-roles.sh       # Step 2: Assign roles (Bash)
+│   │   ├── role-assignment.bicep # IoT Hub Data Contributor role template
+│   │   └── modules/
+│   │       ├── acr.bicep             # Azure Container Registry
+│   │       ├── iot-hub.bicep         # IoT Hub + configurable consumer groups
+│   │       ├── container-app-env.bicep   # Container App Environment + Log Analytics
+│   │       ├── container-app.bicep   # Container App (managed identity enabled)
+│   │       └── eventhub-role-assignment.bicep  # IoT Hub Data Contributor role
+│   └── ai/                       # AI Services infrastructure
+│       ├── main.bicep            # AI orchestrator
+│       ├── deploy.ps1            # Deploy AI resources (PowerShell)
+│       ├── deploy.sh             # Deploy AI resources (Bash)
+│       └── modules/
+│           ├── ai-search.bicep   # Azure AI Search
+│           └── ai-foundry.bicep  # AI Services, Hub, Project, model deployments
 ├── Dockerfile                    # Python 3.12 slim container
 ├── docker-compose.yml            # Local development
 ├── requirements.txt              # Python dependencies
@@ -159,12 +167,12 @@ Creates all Azure resources (ACR, IoT Hub, Container App) and builds the contain
 
 **PowerShell:**
 ```powershell
-.\infra\deploy.ps1 -ResourceGroup "mbi-iot-rg" -Location "eastus" -Prefix "mmxiot" -DeviceCount 20 -ConsumerGroupCount 3
+.\infra\iot\deploy.ps1 -ResourceGroup "mbi-iot-rg" -Location "eastus" -Prefix "mmxiot" -DeviceCount 20 -ConsumerGroupCount 3
 ```
 
 **Bash:**
 ```bash
-RESOURCE_GROUP=mbi-iot-rg LOCATION=eastus PREFIX=mmxiot DEVICE_COUNT=20 CONSUMER_GROUP_COUNT=3 bash infra/deploy.sh
+RESOURCE_GROUP=mbi-iot-rg LOCATION=eastus PREFIX=mmxiot DEVICE_COUNT=20 CONSUMER_GROUP_COUNT=3 bash infra/iot/deploy.sh
 ```
 
 #### Step 2 — Assign roles (requires **Owner** or **User Access Administrator**)
@@ -173,12 +181,12 @@ Grants the Container App's managed identity the IoT Hub Data Contributor role:
 
 **PowerShell:**
 ```powershell
-.\infra\deploy-roles.ps1 -ResourceGroup "mbi-iot-rg" -Prefix "mmxiot"
+.\infra\iot\deploy-roles.ps1 -ResourceGroup "mbi-iot-rg" -Prefix "mmxiot"
 ```
 
 **Bash:**
 ```bash
-RESOURCE_GROUP=mbi-iot-rg PREFIX=mmxiot bash infra/deploy-roles.sh
+RESOURCE_GROUP=mbi-iot-rg PREFIX=mmxiot bash infra/iot/deploy-roles.sh
 ```
 
 > **Note:** If the deploying user has Owner access, both steps can be run back-to-back. The role assignment script auto-discovers the IoT Hub name and Container App principal ID from the prefix.
