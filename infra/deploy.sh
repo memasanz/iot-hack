@@ -19,6 +19,7 @@ DEVICE_COUNT="${DEVICE_COUNT:-10}"
 SEND_INTERVAL="${SEND_INTERVAL:-5}"
 ANOMALY_PROB="${ANOMALY_PROB:-0.05}"
 CONSUMER_GROUP_COUNT="${CONSUMER_GROUP_COUNT:-2}"
+COMPANY_PREFIX="${COMPANY_PREFIX:-MBI}"
 IMAGE_TAG="${IMAGE_TAG:-latest}"
 # ------------------------------------
 
@@ -38,6 +39,7 @@ echo "  Device Count      : $DEVICE_COUNT"
 echo "  Send Interval     : ${SEND_INTERVAL}s"
 echo "  Anomaly Prob      : $ANOMALY_PROB"
 echo "  Consumer Groups   : $CONSUMER_GROUP_COUNT"
+echo "  Company Prefix    : $COMPANY_PREFIX"
 echo "============================================================"
 echo ""
 
@@ -78,6 +80,7 @@ az deployment group create \
     sendIntervalSeconds="$SEND_INTERVAL" \
     anomalyProbability="$ANOMALY_PROB" \
     consumerGroupCount="$CONSUMER_GROUP_COUNT" \
+    companyPrefix="$COMPANY_PREFIX" \
   --output none
 echo "  ✓ Infrastructure deployed"
 

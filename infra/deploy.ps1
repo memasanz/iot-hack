@@ -16,6 +16,7 @@ param(
     [int]$SendInterval = 5,
     [string]$AnomalyProb = "0.05",
     [int]$ConsumerGroupCount = 2,
+    [string]$CompanyPrefix = "MBI",
     [string]$ImageTag = "latest"
 )
 
@@ -37,6 +38,7 @@ Write-Host "  Device Count      : $DeviceCount"
 Write-Host "  Send Interval     : ${SendInterval}s"
 Write-Host "  Anomaly Prob      : $AnomalyProb"
 Write-Host "  Consumer Groups   : $ConsumerGroupCount"
+Write-Host "  Company Prefix    : $CompanyPrefix"
 Write-Host "============================================================"
 Write-Host ""
 
@@ -77,6 +79,7 @@ az deployment group create `
         sendIntervalSeconds=$SendInterval `
         anomalyProbability=$AnomalyProb `
         consumerGroupCount=$ConsumerGroupCount `
+        companyPrefix=$CompanyPrefix `
     --output none
 Write-Host "  [OK] Infrastructure deployed"
 

@@ -201,6 +201,7 @@ RESOURCE_GROUP=mbi-iot-rg PREFIX=mmxiot bash infra/deploy-roles.sh
 | `SendInterval` / `SEND_INTERVAL` | `5` | Seconds between telemetry cycles |
 | `AnomalyProb` / `ANOMALY_PROB` | `0.05` | Anomaly probability (0–1) |
 | `ConsumerGroupCount` / `CONSUMER_GROUP_COUNT` | `2` | Number of consumer groups to create |
+| `CompanyPrefix` / `COMPANY_PREFIX` | `MBI` | Prefix for device IDs (e.g., `MBI` → `MBI-TEMP-0000`) |
 
 ### Authentication
 
@@ -253,6 +254,7 @@ docker compose up --build
 | Variable | Default | Description |
 |---|---|---|
 | `IOT_HUB_HOSTNAME` | *(empty = dry-run)* | IoT Hub hostname (e.g., `myhub.azure-devices.net`) |
+| `COMPANY_PREFIX` | `MBI` | Prefix for device IDs and company field (e.g., `MBI` → `MBI-TEMP-0000`) |
 | `DEVICE_COUNT` | `10` | Number of simulated devices |
 | `SEND_INTERVAL_SECONDS` | `5` | Seconds between telemetry cycles |
 | `ANOMALY_PROBABILITY` | `0.05` | Probability (0–1) of anomaly per reading |

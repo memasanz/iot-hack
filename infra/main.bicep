@@ -29,6 +29,9 @@ param anomalyProbability string = '0.05'
 @description('Number of consumer groups to create (named team1, team2, etc.)')
 param consumerGroupCount int = 2
 
+@description('Company prefix for device IDs and telemetry (e.g., MBI → MBI-TEMP-0000)')
+param companyPrefix string = 'MBI'
+
 // ============================================================================
 // Modules
 // ============================================================================
@@ -71,6 +74,7 @@ module containerApp 'modules/container-app.bicep' = {
     deviceCount: deviceCount
     sendIntervalSeconds: sendIntervalSeconds
     anomalyProbability: anomalyProbability
+    companyPrefix: companyPrefix
   }
 }
 

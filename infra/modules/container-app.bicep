@@ -10,6 +10,7 @@ param iotHubHostname string
 param deviceCount int
 param sendIntervalSeconds int
 param anomalyProbability string
+param companyPrefix string = 'MBI'
 
 // Reference existing ACR to retrieve credentials
 resource acr 'Microsoft.ContainerRegistry/registries@2023-07-01' existing = {
@@ -69,6 +70,10 @@ resource containerApp 'Microsoft.App/containerApps@2024-03-01' = {
             {
               name: 'ANOMALY_PROBABILITY'
               value: anomalyProbability
+            }
+            {
+              name: 'COMPANY_PREFIX'
+              value: companyPrefix
             }
             {
               name: 'LOG_LEVEL'

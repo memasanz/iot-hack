@@ -143,7 +143,7 @@ class Device:
         return {
             "event_id": str(uuid.uuid4()),
             "timestamp": datetime.now(timezone.utc).isoformat(),
-            "company": "MBI",
+            "company": self.device_id.split("-")[0],
             "device_id": self.device_id,
             "device_type": self.device_type.value,
             "location": self.location,
@@ -155,7 +155,7 @@ class Device:
         }
 
 
-def create_device_fleet(device_count: int) -> list[Device]:
+def create_device_fleet(device_count: int, company_prefix: str = "MBI") -> list[Device]:
     """Create a fleet of devices distributed across types and locations."""
     device_types = list(DeviceType)
     devices: list[Device] = []
@@ -167,7 +167,7 @@ def create_device_fleet(device_count: int) -> list[Device]:
         firmware = f"{random.randint(1, 4)}.{random.randint(0, 9)}.{random.randint(0, 99)}"
 
         devices.append(Device(
-            device_id=f"MBI-{dtype.value[:4].upper()}-{i:04d}",
+            device_id=f"{company_prefix}-{dtype.value[:4].upper()}-{i:04d}",
             device_type=dtype,
             location=location,
             firmware_version=firmware,

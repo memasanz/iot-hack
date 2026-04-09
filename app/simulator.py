@@ -48,7 +48,7 @@ class SimulationEngine:
             if self._running:
                 return False
 
-            self.devices = create_device_fleet(self.config.DEVICE_COUNT)
+            self.devices = create_device_fleet(self.config.DEVICE_COUNT, self.config.COMPANY_PREFIX)
             logger.info("Created %d simulated devices", len(self.devices))
 
             if self.dry_run:
