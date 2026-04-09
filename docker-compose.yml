@@ -1,0 +1,9 @@
+version: "3.9"
+
+services:
+  telemetry-simulator:
+    build: .
+    container_name: mbi-iot-simulator
+    env_file:
+      - .env
+    restart: unless-stopped
