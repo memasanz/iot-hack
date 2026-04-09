@@ -25,7 +25,7 @@ $AcrName = "${Prefix}acr"
 $ImageName = "mbi-iot-simulator"
 $FullImage = "${AcrName}.azurecr.io/${ImageName}:${ImageTag}"
 $ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
-$RootDir = Split-Path -Parent $ScriptDir
+$RootDir = Split-Path -Parent (Split-Path -Parent $ScriptDir)
 
 Write-Host "============================================================"
 Write-Host "  IoT Simulator Deployment"
