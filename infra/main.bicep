@@ -74,19 +74,13 @@ module containerApp 'modules/container-app.bicep' = {
   }
 }
 
-module iotHubRoleAssignment 'modules/eventhub-role-assignment.bicep' = {
-  name: 'iot-hub-role-assignment'
-  params: {
-    iotHubName: iotHub.outputs.name
-    principalId: containerApp.outputs.principalId
-  }
-}
-
 // ============================================================================
 // Outputs
 // ============================================================================
 
 output acrLoginServer string = acr.outputs.loginServer
+output iotHubName string = iotHub.outputs.name
 output iotHubHostname string = iotHub.outputs.hostname
 output containerAppName string = containerApp.outputs.name
 output containerAppFqdn string = containerApp.outputs.fqdn
+output containerAppPrincipalId string = containerApp.outputs.principalId

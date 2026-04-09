@@ -39,8 +39,11 @@ mbi_iot/
 ├── infra/                        # Infrastructure as Code
 │   ├── main.bicep                # Orchestrator — wires all modules together
 │   ├── main.bicepparam           # Default parameter values
-│   ├── deploy.ps1                # One-command deploy script (PowerShell)
-│   ├── deploy.sh                 # One-command deploy script (Bash)
+│   ├── deploy.ps1                # Step 1: Deploy resources (PowerShell)
+│   ├── deploy.sh                 # Step 1: Deploy resources (Bash)
+│   ├── deploy-roles.ps1          # Step 2: Assign roles (PowerShell)
+│   ├── deploy-roles.sh           # Step 2: Assign roles (Bash)
+│   ├── role-assignment.bicep     # IoT Hub Data Contributor role template
 │   └── modules/
 │       ├── acr.bicep             # Azure Container Registry
 │       ├── iot-hub.bicep         # IoT Hub + configurable consumer groups
@@ -145,7 +148,11 @@ Each event is a JSON object sent as a device-to-cloud (D2C) message to IoT Hub:
 
 ### One-command deploy
 
-The deploy script creates all Azure resources, builds and pushes the Docker image, and starts the simulator:
+Deployment is split into two steps so users with different permission levels can participate:
+
+#### Step 1 — Deploy resources (requires **Contributor**)
+
+Creates all Azure resources (ACR, IoT Hub, Container App) and builds the container image:
 
 **PowerShell:**
 ```powershell
@@ -156,6 +163,22 @@ The deploy script creates all Azure resources, builds and pushes the Docker imag
 ```bash
 RESOURCE_GROUP=mbi-iot-rg LOCATION=eastus PREFIX=mmxiot DEVICE_COUNT=20 CONSUMER_GROUP_COUNT=3 bash infra/deploy.sh
 ```
+
+#### Step 2 — Assign roles (requires **Owner** or **User Access Administrator**)
+
+Grants the Container App's managed identity the IoT Hub Data Contributor role:
+
+**PowerShell:**
+```powershell
+.\infra\deploy-roles.ps1 -ResourceGroup "mbi-iot-rg" -Prefix "mmxiot"
+```
+
+**Bash:**
+```bash
+RESOURCE_GROUP=mbi-iot-rg PREFIX=mmxiot bash infra/deploy-roles.sh
+```
+
+> **Note:** If the deploying user has Owner access, both steps can be run back-to-back. The role assignment script auto-discovers the IoT Hub name and Container App principal ID from the prefix.
 
 ### What gets deployed
 
