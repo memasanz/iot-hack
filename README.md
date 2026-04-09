@@ -15,8 +15,8 @@ A containerized Python application that generates synthetic telemetry data from 
 │  • Humidity         │                          Consumer groups (team1, team2, ...)
 │                     │                                        │
 │  Managed Identity   │                               ┌────────▼─────────┐
-│  • Register devices │                               │  Fabric / ADX /  │
-│  • IoT Hub Data     │                               │  Stream Analytics │
+│  • Register devices │                               │  Fabric / ADX    │
+│  • IoT Hub Data     │                               │                  │
 │    Contributor      │                               └──────────────────┘
 └─────────────────────┘
         ▲  Image pull
@@ -148,7 +148,7 @@ Each event is a JSON object sent as a device-to-cloud (D2C) message to IoT Hub:
 
 ### One-command deploy
 
-Deployment is split into two steps so users with different permission levels can participate:
+Deployment is split into two steps to support **separation of duties**. In many organizations, the team that provisions infrastructure (Contributor) is not the same team that manages access control (Owner / User Access Administrator). By separating resource creation from role assignment, a developer can deploy the application while an admin reviews and approves the privileged role assignment independently.
 
 #### Step 1 — Deploy resources (requires **Contributor**)
 
@@ -215,8 +215,7 @@ The simulator uses **managed identity** throughout — no secrets or connection 
 The IoT Hub built-in Event Hub-compatible endpoint can be consumed by multiple teams in parallel using separate consumer groups:
 
 1. **Fabric Real-Time Hub** — Add Azure IoT Hub as a source in Fabric. See the step-by-step guide: [Add Azure IoT Hub as source in Real-Time Hub](https://learn.microsoft.com/en-us/fabric/real-time-hub/add-source-azure-iot-hub)
-2. **Azure Stream Analytics** — Use as input with a dedicated consumer group
-3. **Azure Data Explorer** — Create a data connection with its own consumer group
+2. **Azure Data Explorer** — Create a data connection with its own consumer group
 
 Each consumer group reads independently — one team's consumption does not affect another.
 
