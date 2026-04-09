@@ -4,7 +4,7 @@ param location string
 
 @description('AI Search SKU')
 @allowed(['free', 'basic', 'standard'])
-param sku string = 'basic'
+param sku string = 'standard'
 
 resource searchService 'Microsoft.Search/searchServices@2025-05-01' = {
   name: name

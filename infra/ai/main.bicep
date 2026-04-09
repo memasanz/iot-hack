@@ -1,7 +1,7 @@
 // ============================================================================
-// AI Infrastructure — AI Search, AI Foundry (Hub + Project), Model Deployments
+// AI Infrastructure — AI Search, AI Foundry, AI Multi-Service, Model Deployments
 //
-// Deploys: AI Search, AI Services, AI Hub, AI Project,
+// Deploys: AI Search, AI Services, AI Hub, AI Project, AI Multi-Service,
 //          text-embedding-3-small + gpt-4.1 (global) model deployments
 // ============================================================================
 
@@ -15,7 +15,7 @@ param location string = resourceGroup().location
 
 @description('AI Search SKU')
 @allowed(['free', 'basic', 'standard'])
-param aiSearchSku string = 'basic'
+param aiSearchSku string = 'standard'
 
 // ============================================================================
 // Modules
@@ -39,6 +39,14 @@ module aiFoundry 'modules/ai-foundry.bicep' = {
   }
 }
 
+module aiMultiService 'modules/ai-multi-service.bicep' = {
+  name: 'ai-multi-service-deployment'
+  params: {
+    name: '${prefix}-aiservices'
+    location: location
+  }
+}
+
 // ============================================================================
 // Outputs
 // ============================================================================
@@ -47,3 +55,6 @@ output aiSearchName string = aiSearch.outputs.name
 output aiSearchEndpoint string = aiSearch.outputs.endpoint
 output foundryName string = aiFoundry.outputs.foundryName
 output foundryEndpoint string = aiFoundry.outputs.foundryEndpoint
+output projectName string = aiFoundry.outputs.projectName
+output aiMultiServiceName string = aiMultiService.outputs.name
+output aiMultiServiceEndpoint string = aiMultiService.outputs.endpoint

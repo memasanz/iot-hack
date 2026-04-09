@@ -11,7 +11,7 @@ param(
     [string]$ResourceGroup = "mbi-iot-rg",
     [string]$Location = "eastus",
     [string]$Prefix = "mbiiot",
-    [string]$AiSearchSku = "basic"
+    [string]$AiSearchSku = "standard"
 )
 
 $ErrorActionPreference = "Stop"
@@ -52,12 +52,14 @@ Write-Host "  [OK] Deployment complete!"
 Write-Host "============================================================"
 Write-Host ""
 Write-Host "  Resources deployed:"
-Write-Host "    AI Search     : ${Prefix}-search"
-Write-Host "    AI Foundry    : ${Prefix}-foundry"
+Write-Host "    AI Search        : ${Prefix}-search"
+Write-Host "    AI Foundry       : ${Prefix}-foundry"
+Write-Host "    AI Multi-Service : ${Prefix}-aiservices"
+Write-Host "    Project          : team01"
 Write-Host ""
 Write-Host "  Model deployments:"
-Write-Host "    text-embedding-3-small  (Standard)"
-Write-Host "    gpt-41                  (Global Standard)"
+Write-Host "    text-embedding-3-small  (Standard, 1.5K TPM)"
+Write-Host "    gpt-4.1                 (Global Standard, 500K TPM)"
 Write-Host ""
 Write-Host "  AI Foundry portal:"
 Write-Host "    https://ai.azure.com"

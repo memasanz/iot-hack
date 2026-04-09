@@ -34,7 +34,7 @@ resource embeddingDeployment 'Microsoft.CognitiveServices/accounts/deployments@2
   name: 'text-embedding-3-small'
   sku: {
     name: 'Standard'
-    capacity: 120
+    capacity: 150
   }
   properties: {
     model: {
@@ -47,11 +47,11 @@ resource embeddingDeployment 'Microsoft.CognitiveServices/accounts/deployments@2
 
 resource gpt41Deployment 'Microsoft.CognitiveServices/accounts/deployments@2025-06-01' = {
   parent: foundry
-  name: 'gpt-41'
+  name: 'gpt-4.1'
   dependsOn: [embeddingDeployment]
   sku: {
     name: 'GlobalStandard'
-    capacity: 80
+    capacity: 500
   }
   properties: {
     model: {
@@ -59,6 +59,25 @@ resource gpt41Deployment 'Microsoft.CognitiveServices/accounts/deployments@2025-
       name: 'gpt-4.1'
       version: '2025-04-14'
     }
+  }
+}
+
+// ============================================================================
+// Project
+// ============================================================================
+
+resource team01Project 'Microsoft.CognitiveServices/accounts/projects@2025-06-01' = {
+  parent: foundry
+  name: 'team01'
+  location: location
+  sku: {
+    name: 'S0'
+  }
+  identity: {
+    type: 'SystemAssigned'
+  }
+  properties: {
+    displayName: 'team01'
   }
 }
 
@@ -91,3 +110,4 @@ resource aiSearchConnection 'Microsoft.CognitiveServices/accounts/connections@20
 
 output foundryName string = foundry.name
 output foundryEndpoint string = foundry.properties.endpoint
+output projectName string = team01Project.name

@@ -22,3 +22,4 @@ This guide walks you through using **Azure AI Search** and **Azure AI Foundry** 
 
 - [Azure AI Search documentation](https://learn.microsoft.com/en-us/azure/search/)
 - [Azure AI Foundry documentation](https://learn.microsoft.com/en-us/azure/ai-studio/)
+- [Allow apps running outside of Fabric to access data via OneLake](https://learn.microsoft.com/en-us/fabric/onelake/security/get-started-security#allow-apps-running-outside-of-fabric-to-access-data-via-onelake)
