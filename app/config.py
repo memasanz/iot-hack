@@ -6,7 +6,7 @@ load_dotenv()
 
 class Config:
     IOT_HUB_HOSTNAME: str = os.getenv("IOT_HUB_HOSTNAME", "")
-    COMPANY_PREFIX: str = os.getenv("COMPANY_PREFIX", "MBI")
+    COMPANY_PREFIX: str = os.getenv("COMPANY_PREFIX", "MBI").upper()
     DEVICE_COUNT: int = int(os.getenv("DEVICE_COUNT", "10"))
     SEND_INTERVAL_SECONDS: float = float(os.getenv("SEND_INTERVAL_SECONDS", "5"))
     ANOMALY_PROBABILITY: float = float(os.getenv("ANOMALY_PROBABILITY", "0.05"))
